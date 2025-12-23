@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  react:
+    build: .
+    container_name: react_app
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    command: npm run dev
