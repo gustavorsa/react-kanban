@@ -1,7 +1,32 @@
 {
+    "labels": {
+        "createTask": "Criar task",
+        "toDo": "A fazer",
+        "status": "Status",
+        "inProgress": "Em progresso",
+        "completed": "Concluído",
+        "priority": "Prioridade",
+        "low": "Baixa",
+        "high": "Alta",
+        "description": "Descrição",
+        "title": "Titulo"
+    },
     "common": {
-        "labels": {
-            "createTask": "Criar task"
-        }
+        "labels": "Média"
+    },
+    "title": {
+        "modal": "Criar nova tarefa"
+    },
+    "descriptions": {
+        "creteModal": "Adicione uma nova tarefa ao quadro."
+    },
+    "placeholders": {
+        "title": "Defina um título",
+        "description": "Descreva a tarefa"
+    },
+    "actions": {
+        "cancel": "Cancelar",
+        "save": "Salvar",
+        "createTask": "Criar tarefa"
     }
 }

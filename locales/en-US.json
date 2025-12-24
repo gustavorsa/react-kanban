@@ -1,7 +1,32 @@
 {
+    "labels": {
+        "createTask": "Create task",
+        "toDo": "To do",
+        "status": "Status",
+        "inProgress": "In progress",
+        "completed": "Completed",
+        "priority": "Priority",
+        "low": "Low",
+        "high": "High",
+        "description": "Description",
+        "title": "Title"
+    },
     "common": {
-        "labels": {
-            "createTask": "Create task"
-        }
+        "labels": "Medium"
+    },
+    "title": {
+        "modal": "Create new task"
+    },
+    "descriptions": {
+        "creteModal": "Add a new task to the board."
+    },
+    "placeholders": {
+        "title": "Set a title",
+        "description": "Describe the task"
+    },
+    "actions": {
+        "cancel": "Cancel",
+        "save": "Save",
+        "createTask": "Create task"
     }
 }
