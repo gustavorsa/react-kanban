@@ -3,6 +3,8 @@ import { Theme } from "@radix-ui/themes";
 import App from "./App.tsx";
 import "@radix-ui/themes/styles.css";
 
+import "./plugins/i18n";
+
 createRoot(document.getElementById("root")!).render(
     <Theme appearance="dark">
         <App />
