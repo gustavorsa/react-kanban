@@ -1,9 +1,43 @@
 import { PlusIcon } from "@radix-ui/react-icons";
-import { Badge, Box, Button, Dialog, Flex, RadioGroup, Text, TextArea, TextField } from "@radix-ui/themes";
+import {
+    Badge,
+    Box,
+    Button,
+    Dialog,
+    Flex,
+    RadioGroup,
+    Text,
+    TextArea,
+    TextField,
+} from "@radix-ui/themes";
+import type { FormEventHandler } from "react";
 import { useTranslation } from "react-i18next";
+import z from "zod";
+
+const CreateTaskSchema = z.object({
+    title: z.string(),
+    description: z.string(),
+    status: z.enum(["todo", "doing", "done"]),
+    priority: z.enum(["low", "medium", "high"]),
+});
 
 export const CreateTaskForm: React.FC = () => {
     const { t } = useTranslation();
+
+    const handleSubmit: FormEventHandler<HTMLFormElement> = async (ev) => {
+        ev.preventDefault();
+
+        const formData = new FormData(ev.currentTarget);
+        const title = formData.get("title");
+        const description = formData.get("description");
+        const status = formData.get("status");
+        const priority = formData.get("priority");
+
+        ev.currentTarget.reset();
+
+        const taskData = CreateTaskSchema.parse({ title, description, status, priority });
+        alert(JSON.stringify(taskData));
+    };
 
     return (
         <Dialog.Root>
@@ -13,21 +47,21 @@ export const CreateTaskForm: React.FC = () => {
                 </Button>
             </Dialog.Trigger>
             <Dialog.Content maxWidth="32rem">
-                <Dialog.Title>{t('title.modal')}</Dialog.Title>
+                <Dialog.Title>{t("title.modal")}</Dialog.Title>
                 <Dialog.Description size="2" mb="4">
-                    {t('descriptions.creteModal')}
+                    {t("descriptions.creteModal")}
                 </Dialog.Description>
 
-                <form>
+                <form onSubmit={handleSubmit}>
                     <Flex direction="column" gap="4">
                         <Box maxWidth="32rem">
                             <Box mb="2">
                                 <Text as="label" htmlFor="title">
-                                    {t('labels.title')}
+                                    {t("labels.title")}
                                 </Text>
                             </Box>
                             <TextField.Root
-                                placeholder={t('placeholders.title')}
+                                placeholder={t("placeholders.title")}
                                 name="title"
                                 id="title"
                                 autoFocus
@@ -38,11 +72,11 @@ export const CreateTaskForm: React.FC = () => {
                         <Box maxWidth="32rem">
                             <Box mb="2">
                                 <Text as="label" htmlFor="description">
-                                    {t('labels.description')}
+                                    {t("labels.description")}
                                 </Text>
                             </Box>
                             <TextArea
-                                placeholder={t('placeholders.description')}
+                                placeholder={t("placeholders.description")}
                                 name="description"
                                 id="description"
                                 required
@@ -52,33 +86,33 @@ export const CreateTaskForm: React.FC = () => {
                         <Flex gap="8">
                             <Box>
                                 <Text as="label" htmlFor="status">
-                                    {t('labels.status')}
+                                    {t("labels.status")}
                                 </Text>
                                 <RadioGroup.Root name="status" defaultValue="todo">
                                     <RadioGroup.Item value="todo" id="status-todo">
-                                        <Badge>{t('labels.toDo')}</Badge>
+                                        <Badge color="gray">{t("labels.toDo")}</Badge>
                                     </RadioGroup.Item>
-                                    <RadioGroup.Item value="in-progress" id="status-in-progress">
-                                        {t('labels.inProgress')}
+                                    <RadioGroup.Item value="doing" id="status-doing">
+                                        <Badge color="yellow">{t("labels.doing")}</Badge>
                                     </RadioGroup.Item>
                                     <RadioGroup.Item value="done" id="status-done">
-                                        {t('labels.completed')}
+                                        <Badge color="green">{t("labels.completed")}</Badge>
                                     </RadioGroup.Item>
                                 </RadioGroup.Root>
                             </Box>
                             <Box>
                                 <Text as="label" htmlFor="priority">
-                                    {t('labels.priority')}
+                                    {t("labels.priority")}
                                 </Text>
-                                <RadioGroup.Root name="priority" defaultValue="todo">
-                                    <RadioGroup.Item value="todo" id="low">
-                                        {t('labels.low')}
+                                <RadioGroup.Root name="priority" defaultValue="low">
+                                    <RadioGroup.Item value="low" id="low">
+                                        <Badge color="sky">{t("labels.low")}</Badge>
                                     </RadioGroup.Item>
-                                    <RadioGroup.Item value="in-progress" id="medium">
-                                        {t('common.labels')}
+                                    <RadioGroup.Item value="medium" id="medium">
+                                        <Badge color="amber">{t("common.labels")}</Badge>
                                     </RadioGroup.Item>
-                                    <RadioGroup.Item value="done" id="high">
-                                        {t('labels.high')}
+                                    <RadioGroup.Item value="high" id="high">
+                                        <Badge color="tomato">{t("labels.high")}</Badge>
                                     </RadioGroup.Item>
                                 </RadioGroup.Root>
                             </Box>
@@ -86,10 +120,10 @@ export const CreateTaskForm: React.FC = () => {
                         <Flex gap="2" justify="end">
                             <Dialog.Close>
                                 <Button color="gray" variant="soft">
-                                    {t('actions.cancel')}
+                                    {t("actions.cancel")}
                                 </Button>
                             </Dialog.Close>
-                            <Button type="submit">{t('actions.createTask')}</Button>
+                            <Button type="submit">{t("actions.createTask")}</Button>
                         </Flex>
                     </Flex>
                 </form>

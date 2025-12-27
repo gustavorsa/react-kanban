@@ -3,13 +3,15 @@
         "createTask": "Create task",
         "toDo": "To do",
         "status": "Status",
-        "inProgress": "In progress",
+        "doing": "In progress",
         "completed": "Completed",
         "priority": "Priority",
         "low": "Low",
         "high": "High",
         "description": "Description",
-        "title": "Title"
+        "title": "Title",
+        "start": "Start",
+        "delete": "Delete"
     },
     "common": {
         "labels": "Medium"

@@ -3,13 +3,15 @@
         "createTask": "Criar task",
         "toDo": "A fazer",
         "status": "Status",
-        "inProgress": "Em progresso",
+        "doing": "Em progresso",
         "completed": "Concluído",
         "priority": "Prioridade",
         "low": "Baixa",
         "high": "Alta",
         "description": "Descrição",
-        "title": "Titulo"
+        "title": "Titulo",
+        "start": "Iniciar",
+        "delete": "Excluir"
     },
     "common": {
         "labels": "Média"
