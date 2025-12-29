@@ -2,6 +2,7 @@ import { Badge, Button, Card, Flex, Heading, Text } from "@radix-ui/themes";
 import type React from "react";
 import type { Task } from "../entities";
 import { useTranslation } from "react-i18next";
+import { useTasks } from "../hooks/useTasks";
 
 interface TaskCardProps {
     task: Task;
@@ -9,6 +10,7 @@ interface TaskCardProps {
 
 export const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
     const { t } = useTranslation();
+    const { deleteTask, updateTask } = useTasks();
 
     const priorityColor: Record<string, "sky" | "amber" | "tomato"> = {
         low: "sky",
@@ -27,6 +29,14 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         done: "bronze",
     };
 
+    const handleUpdate = () => {
+        if (task.status === "todo") {
+            updateTask(task.id, { status: "doing" });
+        }
+
+        updateTask(task.id, { status: "done" });
+    };
+
     return (
         <Card>
             <Flex align={"center"} gap={"5"}>
@@ -40,9 +50,18 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
             </Text>
             <Flex gap={"2"}>
                 {task.status != "done" && (
-                    <Button color={actionColor[task.status]}>{textAction[task.status]}</Button>
+                    <Button color={actionColor[task.status]} onClick={handleUpdate}>
+                        {textAction[task.status]}
+                    </Button>
                 )}
-                <Button color="red">{t('labels.delete')}</Button>
+                <Button
+                    color="red"
+                    onClick={() => {
+                        deleteTask(task.id);
+                    }}
+                >
+                    {t("labels.delete")}
+                </Button>
             </Flex>
         </Card>
     );

@@ -2,46 +2,18 @@ import { Badge, Flex, Grid, ScrollArea } from "@radix-ui/themes";
 import type React from "react";
 import { useTranslation } from "react-i18next";
 import { TaskCard } from "./TaskCard";
-import type { Task } from "../entities";
+import { useTasks } from "../hooks/useTasks";
 
 export const TaskBoard: React.FC = () => {
     const { t } = useTranslation();
-
-    const tasksTodo: Task[] = [
-        {
-            id: 1,
-            title: "Enviar relatório",
-            description: "Enviar o relatório mensal para o departamento financeiro.",
-            status: "todo",
-            priority: "high",
-        },
-    ];
-
-    const tasksDoing: Task[] = [
-        {
-            id: 1,
-            title: "Enviar relatório",
-            description: "Enviar o relatório mensal para o departamento financeiro.",
-            status: "doing",
-            priority: "high",
-        },
-    ];
-    const tasksDone: Task[] = [
-        {
-            id: 1,
-            title: "Enviar relatório",
-            description: "Enviar o relatório mensal para o departamento financeiro.",
-            status: "done",
-            priority: "high",
-        },
-    ];
+    const { tasksTodo, tasksDone, tasksDoing } = useTasks();
 
     return (
-        <ScrollArea scrollbars="horizontal">
+        <ScrollArea scrollbars="horizontal" style={{ width: "100%", maxWidth: "100vw" }}>
             <Grid columns={"3"} gap={"4"} minWidth={"64rem"}>
                 <Flex direction={"column"} gap={"4"}>
                     <Badge size={"3"} color="gray">
-                        {t("labels.toDo")}
+                        {t("labels.toDo")} ({tasksTodo.length})
                     </Badge>
                     {tasksTodo.map((task) => (
                         <TaskCard key={task.id} task={task} />
@@ -49,7 +21,7 @@ export const TaskBoard: React.FC = () => {
                 </Flex>
                 <Flex direction={"column"} gap={"4"}>
                     <Badge size={"3"} color="yellow">
-                        {t("labels.doing")}
+                        {t("labels.doing")} ({tasksDoing.length})
                     </Badge>
                     {tasksDoing.map((task) => (
                         <TaskCard key={task.id} task={task} />
@@ -57,7 +29,7 @@ export const TaskBoard: React.FC = () => {
                 </Flex>
                 <Flex direction={"column"} gap={"4"}>
                     <Badge size={"3"} color="green">
-                        {t("labels.completed")}
+                        {t("labels.completed")} ({tasksDone.length})
                     </Badge>
                     {tasksDone.map((task) => (
                         <TaskCard key={task.id} task={task} />

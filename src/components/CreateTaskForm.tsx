@@ -13,6 +13,7 @@ import {
 import type { FormEventHandler } from "react";
 import { useTranslation } from "react-i18next";
 import z from "zod";
+import { useTasks } from "../hooks/useTasks";
 
 const CreateTaskSchema = z.object({
     title: z.string(),
@@ -23,6 +24,7 @@ const CreateTaskSchema = z.object({
 
 export const CreateTaskForm: React.FC = () => {
     const { t } = useTranslation();
+    const { createTask } = useTasks();
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = async (ev) => {
         ev.preventDefault();
@@ -36,7 +38,7 @@ export const CreateTaskForm: React.FC = () => {
         ev.currentTarget.reset();
 
         const taskData = CreateTaskSchema.parse({ title, description, status, priority });
-        alert(JSON.stringify(taskData));
+        await createTask(taskData);
     };
 
     return (
