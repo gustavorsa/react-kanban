@@ -195,6 +195,16 @@ const RichTextEditor: React.FC<{ placeholder?: string }> = ({ placeholder = "Esc
     reader.readAsDataURL(file);
   };
 
+  // Download de imagem em base64
+  const downloadDataUrl = (filename: string, dataUrl: string) => {
+    const a = document.createElement("a");
+    a.href = dataUrl;
+    a.download = filename || "imagem";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  };
+
   // Buscar comentários ao montar
   useEffect(() => {
     commentService.fetchComments().then((stored) => setComments(stored));
@@ -329,7 +339,13 @@ const RichTextEditor: React.FC<{ placeholder?: string }> = ({ placeholder = "Esc
               <img src={preview.src} alt={preview.name} style={{ maxWidth: "100%", borderRadius: 8 }} />
             </Box>
           )}
-          <Flex mt="3" justify="end">
+          <Flex mt="3" justify="between" align="center">
+            <Button
+              variant="soft"
+              onClick={() => preview && downloadDataUrl(preview.name, preview.src)}
+            >
+              Baixar
+            </Button>
             <Button onClick={() => setPreviewOpen(false)}>Fechar</Button>
           </Flex>
         </Dialog.Content>
