@@ -1,0 +1,25 @@
+/* Bordas e placeholder visível para o campo de digitação do Tiptap */
+.rt-bordered {
+  border: 1px solid #3b3b3b;
+  border-radius: 6px;
+  padding: 10px;
+  min-height: 120px;
+}
+
+.rt-bordered:empty::before {
+  content: attr(data-placeholder);
+  color: #787878;
+}
+
+/* Toolbar icons spacing */
+.rt-toolbar {
+  gap: 8px;
+}
+
+/* Menções */
+.mention {
+  color: #7c9cff;
+}
+.mention.team {
+  color: #8ece6a;
+}

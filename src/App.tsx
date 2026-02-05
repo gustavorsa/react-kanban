@@ -1,5 +1,5 @@
-import TiptapComponent from "./components/TiptapComponent";
+import RichTextEditor from "./components/RichTextEditor";
 
 export default function App() {
-    return <TiptapComponent />;
+    return <RichTextEditor />;
 }
