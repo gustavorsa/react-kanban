@@ -14,18 +14,24 @@ export const TasksContextProviders: React.FC<TaskContextProviderProps> = ({ chil
         taskService.fetchTasks().then((storedTasks) => {
             setTasks(storedTasks);
         });
-    });
+    }, []);
 
     const createTask = async (attributes: Omit<Task, "id">): Promise<void> => {
-        taskService.createTask(attributes);
+        await taskService.createTask(attributes);
+        const storedTasks = await taskService.fetchTasks();
+        setTasks(storedTasks);
     };
 
     const updateTask = async (id: string, attributes: Partial<Omit<Task, "id">>): Promise<void> => {
-        taskService.updateTask(id, attributes);
+        await taskService.updateTask(id, attributes);
+        const storedTasks = await taskService.fetchTasks();
+        setTasks(storedTasks);
     };
 
     const deleteTask = async (id: string): Promise<void> => {
-        taskService.deleteTask(id);
+        await taskService.deleteTask(id);
+        const storedTasks = await taskService.fetchTasks();
+        setTasks(storedTasks);
     };
 
     return (
